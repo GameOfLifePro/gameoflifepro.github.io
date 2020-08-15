@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript"src="./Libraries/P5js/p5.js"></script>
+    <script type="text/javascript"src="./Libraries/JQuery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript"src="./Libraries/Bootstrap/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="./Libraries/Bootstrap/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="./icon.png" />
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <title>The Game of Life</title>
+</head>
+<body oncontextmenu="return false;">
+<div id="menu" class="rounded border border-secondary">
+    <div class="row">
+        <div class="col-4">
+            <button id="start" class="btn btn-success font-weight-bold w-100">Play</button>
+        </div>
+        <div class="col-4">
+            <button id="pause" class="btn btn-danger font-weight-bold w-100"disabled>Stop</button>
+        </div>
+        <div class="col-1 offset-2">
+            <button type="button" class="close" aria-label="Close">
+                <span aria-hidden="true" id="hide_menu">&#8827;</span>
+            </button>
+        </div>
+    </div>
+    <div class="row pattern">
+        <div class="col-3 d-flex align-items-center">
+            <label for="pattern" class="font-weight-bold unselectable">Pattern:</label>
+        </div>
+        <div class="col-9">
+            <select id="pattern" class="form-control">
+                <option>Custom</option>
+                <option>Gosper Glider Gun</option>
+                <option>Pulsar1</option>
+                <option>Pulsar2</option>
+                <option>Random</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <label for="speed" class="badge badge-primary unselectable">
+                Speed:
+            </label>
+        </div>
+        <div class="col-8 d-flex align-items-center">
+            <input id="speed" type="range" class="custom-range" min="1" max="60" value="20" disabled>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <label for="size" class="badge badge-primary unselectable">Grid Size:</label>
+        </div>
+        <div class="col-8 d-flex align-items-center">
+            <input id="size" type="range" class="custom-range" min="1" max="4" value="2" step="1">
+        </div>
+    </div>
+    <div class="custom-control custom-switch mt-2">
+        <input type="checkbox" class="custom-control-input" id="showGrid" checked>
+        <label class="custom-control-label font-weight-bold unselectable" for="showGrid">Show Grid</label>
+    </div>
+    <div class="custom-control custom-switch mt-2">
+        <input type="checkbox" class="custom-control-input" id="unlimited" checked>
+        <label class="custom-control-label font-weight-bold unselectable" for="unlimited">Active Borders</label>
+    </div>
+    <div id="customControls" class="border border-primary rounded w-100 mt-2">
+        <p class="text-center h4 text-dark"><u>CUSTOM MODE</u></p>
+        <ul>
+            <li>Left Click &rarr; set cells as Alive</li>
+            <li>Right Click &rarr; set cells as Dead</li>
+            <li>Double Click &rarr; set Alive cell as Dead</li>
+        </ul>
+    </div>
+    <div id="controls" class="border border-primary rounded w-100 mt-2">
+        <p class="text-center h4 text-dark"><u>CONTROLS</u></p>
+        <ul>
+            <li>Space &rarr; Play / Stop</li>
+            <li>Esc &rarr; Clear the Grid</li>
+        </ul>
+    </div>
+</div>
+<div id="show_menu" class="rounded unselectable">&#9881;</div>
+<script src="GameOfLife.js"></script>
+</body>
+</html>

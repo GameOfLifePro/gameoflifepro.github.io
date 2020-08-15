@@ -1,0 +1,35 @@
+body{overflow: hidden;}
+#fps, label[for=speed], label[for=size]{font-size: 15px;}
+#pattern, input[type=range], label[for=unlimited], label[for=showGrid]{cursor: pointer;}
+#fps{margin-left: 5px;}
+.row{margin-top: 20px;}
+ul li{font-size: 14px}
+.close, .close:hover, .close:active, .close:focus{outline: none;}
+#menu{
+  background-color: rgba(255, 255, 255, 0.90);
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  padding: 0px 10px 10px;
+  transition: right 0.3s linear;
+}
+#show_menu{
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  right: 10px;
+  top: 10px;
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
+  transition: background-color 0.1s linear;
+}
+.unselectable{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
