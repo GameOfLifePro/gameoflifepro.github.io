@@ -5,6 +5,8 @@ body{overflow: hidden;}
 .row{margin-top: 20px;}
 ul li{font-size: 14px}
 .close, .close:hover, .close:active, .close:focus{outline: none;}
+#socials i{margin-right: 5px;}
+#socials i:first-child{color: rgb(116, 192, 255);}
 #menu{
   background-color: rgba(255, 255, 255, 0.90);
   position: absolute;
