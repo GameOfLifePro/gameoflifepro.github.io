@@ -26,6 +26,7 @@ $(document).ready(() => {
     document.getElementById('speed').disabled = false;
     document.getElementById('size').disabled = true;
     document.getElementById('pattern').disabled = true;
+    document.getElementById('rule').disabled = true;
     document.getElementById('start').blur();
     loop();
   });
@@ -36,6 +37,7 @@ $(document).ready(() => {
     document.getElementById('speed').disabled = true;
     document.getElementById('size').disabled = false;
     document.getElementById('pattern').disabled = false;
+    document.getElementById('rule').disabled = false;
     document.getElementById('pause').blur();
     noLoop();
   });
@@ -175,6 +177,16 @@ function drawCells() {
 }
 
 function calculateNextGeneration() {
+
+  let survive = [0,0,0,0,0,0,0,0,0];
+  let born = [0,0,0,0,0,0,0,0,0];
+  let slashPassed = false;
+
+  for (const element of document.getElementById('rule').value)
+    if (element === '/') slashPassed = true;
+    else if (slashPassed) born[element] = 1;
+    else survive[element] = 1;
+    
   let nextGrid = createGrid();
   let offset = bounds ? 1 : 0;
 
@@ -188,9 +200,9 @@ function calculateNextGeneration() {
           if (!(x === 0 && y === 0))
             neighbors += grid[(x + i + nCols) % nCols][(y + j + nRows) % nRows];
 
-      if ((neighbors < 2 || neighbors > 3) && actualCell === 1) nextGrid[i][j] = 0; // Cell is ON
-      else if (neighbors === 3 && actualCell === 0) nextGrid[i][j] = 1; // Cell is OFF
-      else nextGrid[i][j] = actualCell; // Cell state remains the same
+      if (actualCell === 1 && survive[neighbors]) nextGrid[i][j] = 1; // Cell survives
+      else if (actualCell === 0 && born[neighbors]) nextGrid[i][j] = 1; // Cell is born
+      else nextGrid[i][j] = 0; // Cell dies or remains dead
     }
   return nextGrid;
 }
