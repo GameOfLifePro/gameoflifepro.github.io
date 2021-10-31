@@ -66,6 +66,14 @@
         <input type="checkbox" class="custom-control-input" id="unlimited" checked>
         <label class="custom-control-label font-weight-bold unselectable" for="unlimited">Active Borders</label>
     </div>
+    <div class="row pattern">
+        <div class="col-3 d-flex align-items-center">
+            <label for="rule" class="font-weight-bold unselectable">Rule:</label>
+        </div>
+        <div class="col-9">
+            <input type="text" id="rule" placeholder="survive/born" pattern="^(?!.*(.).*\1.*/)[0-8]*/(?!.*(.).*\2)[0-8]*$" value="23/3">
+        </div>
+    </div>
     <div id="customControls" class="border border-primary rounded w-100 mt-2">
         <p class="text-center h4 text-dark"><u>CUSTOM MODE</u></p>
         <ul>
