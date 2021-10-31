@@ -60,7 +60,7 @@ $(document).ready(() => {
   });
 });
 
-let tileWidth, tileHeight, nCols, nRows, grid, bounds, showGrid, drawing;
+let tileSize, nCols, nRows, grid, bounds, showGrid, drawing;
 
 function setup(){
   let field = createCanvas(windowWidth, windowHeight);
@@ -102,13 +102,11 @@ function keyPressed(){
 }
 
 function setupValues(){
-  let multiplier = document.getElementById('size').value;
-  let multiplierWidth = pow(2, parseInt(multiplier));
-  let multiplierHeight = multiplierWidth/2;
-  tileWidth = width/screen.pixelDepth/multiplierWidth;
-  tileHeight = height/screen.pixelDepth/multiplierHeight;
-  nCols = width/tileWidth;
-  nRows = height/tileHeight;
+  let multiplier = pow(2, document.getElementById('size').value)/2;
+  let smallerSize = min(width, height);
+  tileSize = max(smallerSize/screen.pixelDepth/multiplier, 3);
+  nCols = Math.floor(width/tileSize);
+  nRows = Math.floor(height/tileSize);
   checkPattern();
   customDraw();
 }
@@ -127,8 +125,8 @@ function clearGrid(){
 
 function drawCustomStandard(){
   if(document.getElementById('pattern').value === 'Custom' && drawing){
-    let cellX = round((mouseX - (mouseX % tileWidth))/tileWidth);
-    let cellY = round((mouseY - (mouseY % tileHeight))/tileHeight);
+    let cellX = round((mouseX - (mouseX % tileSize))/tileSize);
+    let cellY = round((mouseY - (mouseY % tileSize))/tileSize);
 
     if(mouseButton === 'left') grid[cellX][cellY] = 1;
     else if(mouseButton === 'right') grid[cellX][cellY] = 0;
@@ -139,8 +137,8 @@ function drawCustomStandard(){
 
 function drawCustomDoubleClick(){
   if(document.getElementById('pattern').value === 'Custom' && drawing){
-    let cellX = round((mouseX - (mouseX % tileWidth))/tileWidth);
-    let cellY = round((mouseY - (mouseY % tileHeight))/tileHeight);
+    let cellX = round((mouseX - (mouseX % tileSize))/tileSize);
+    let cellY = round((mouseY - (mouseY % tileSize))/tileSize);
 
     grid[cellX][cellY] = 0;
     customDraw();
@@ -149,10 +147,10 @@ function drawCustomDoubleClick(){
 
 function drawBorders(){
   fill(0);
-  for (let i = 0; i < nCols; i++) rect(i * tileWidth, 0, tileWidth, tileHeight);//Top Border
-  for (let i = 0; i < nRows; i++) rect(0, i * tileHeight, tileWidth, tileHeight);//Left Border
-  for (let i = 0; i < nCols; i++) rect(i * tileWidth, (nRows-1)*tileHeight, tileWidth, tileHeight);//Bottom Border
-  for (let i = 0; i < nRows; i++) rect((nCols-1)*tileWidth, i * tileHeight, tileWidth, tileHeight);//Right Border
+  for (let i = 0; i < nCols; i++) rect(i * tileSize, 0, tileSize, tileSize);//Top Border
+  for (let i = 0; i < nRows; i++) rect(0, i * tileSize, tileSize, tileSize);//Left Border
+  for (let i = 0; i < nCols; i++) rect(i * tileSize, (nRows-1)*tileSize, tileSize, tileSize);//Bottom Border
+  for (let i = 0; i < nRows; i++) rect((nCols-1)*tileSize, i * tileSize, tileSize, tileSize);//Right Border
   fill(3, 19, 255);
 }
 
@@ -165,15 +163,15 @@ function createGrid() {
 }
 
 function drawGrid() {
-  for (let i = 0; i < width; i += tileWidth) line(i, 0, i, height); //Vertical bars
-  for (let i = 0; i < height; i += tileHeight) line(0, i, width, i); //Horizontal bars
+  for (let i = 0; i < width; i += tileSize) line(i, 0, i, height); //Vertical bars
+  for (let i = 0; i < height; i += tileSize) line(0, i, width, i); //Horizontal bars
 }
 
 function drawCells() {
   for (let i = 0; i < nCols; i++)
     for (let j = 0; j < nRows; j++)
       if (grid[i][j] === 1)
-        rect(i * tileWidth, j * tileHeight, tileWidth, tileHeight);
+        rect(i * tileSize, j * tileSize, tileSize, tileSize);
 }
 
 function calculateNextGeneration() {
